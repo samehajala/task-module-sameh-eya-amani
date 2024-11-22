@@ -1,0 +1,62 @@
+<!-- src/app/components/task-manager/task-manager.component.html -->
+<div class="task-manager-container">
+    <h2>Task Manager</h2>
+  
+    <!-- Add New Task Section -->
+    <div class="new-task-section">
+      <h3>Add New Task</h3>
+      <input 
+        type="text" 
+        [(ngModel)]="newTask.title" 
+        placeholder="Enter Task Title" 
+        class="input-field" 
+      />
+      <textarea 
+        [(ngModel)]="newTask.description" 
+        placeholder="Enter Task Description" 
+        class="input-field"
+      ></textarea>
+      <button (click)="addTask()" class="btn btn-primary">Add Task</button>
+    </div>
+  
+    <hr />
+  
+    <!-- Task List Section -->
+    <div class="task-list-section">
+      <h3>Tasks</h3>
+      <div *ngIf="tasks.length === 0" class="no-tasks">
+        No tasks available. Please add a task.
+      </div>
+      <ul *ngIf="tasks.length > 0">
+        <li *ngFor="let task of tasks" class="task-item">
+          <div class="task-content">
+            <h4>{{ task.title }}</h4>
+            <p>{{ task.description }}</p>
+          </div>
+          <div class="task-actions">
+            <button (click)="startEditing(task)" class="btn btn-secondary">Edit</button>
+            <button (click)="deleteTask(task.id!)" class="btn btn-danger">Delete</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  
+    <!-- Edit Task Section -->
+    <div *ngIf="editingTask" class="edit-task-section">
+      <h3>Edit Task</h3>
+      <input 
+        type="text" 
+        [(ngModel)]="editingTask.title" 
+        placeholder="Edit Task Title" 
+        class="input-field"
+      />
+      <textarea 
+        [(ngModel)]="editingTask.description" 
+        placeholder="Edit Task Description" 
+        class="input-field"
+      ></textarea>
+      <button (click)="updateTask()" class="btn btn-primary">Save</button>
+      <button (click)="cancelEditing()" class="btn btn-secondary">Cancel</button>
+    </div>
+  </div>
+  
